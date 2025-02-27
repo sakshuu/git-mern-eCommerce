@@ -19,20 +19,21 @@ app.use(log)
 app.use(cookieParser())
 app.use(express.json())
 app.use(cors({
-    credentials: true,
-    origin:(o,cb) => {
-        const allowed = [
-            "http:localhost:3000/",
-            "http://localhost:3000/",
-            "http:localhost:5173",
+        credentials: true,
+        origin:(o, cb) => {
+                const allowed = [
+            "http://localhost:3000",
+            "http://localhost:5173",
+            "http://127.0.0.1:5173",
         ]
         if(allowed.indexOf(o) !== -1 || !o){
-            cb(null, true)
+                cb(null, true)
         } else {
-            cb("blocked by cors")
-        }
+                cb("blocked by cors")
+            }
     }
 }))
+
 app.use("/api/user", require("./routes/userRoutes"))
 app.use("/api/cart", require("./routes/cartRoutes"))
 app.use("/api/order", require("./routes/orderRoutes"))
